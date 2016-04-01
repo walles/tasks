@@ -265,7 +265,6 @@
 	<string name="EPr_voiceInputEnabled_title">Голосовой ввод</string>
 	<string name="EPr_voiceRemindersEnabled_title">Голосовые напоминания</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks должен произносить название задач во время напоминаний</string>
-	<string name="EPr_use_dark_theme">Тёмная тема</string>
 	<string name="delete_task">Удалить задачу</string>
 	<string name="voice_command_added_task">Добавленная задача</string>
 	<string name="external_storage_unavailable">Не могу открыть внешний накопитель</string>
@@ -346,6 +345,7 @@
 	<string name="show_completed">Показать выполненные</string>
 	<string name="reverse"> Реверс</string>
 	<string name="task_count">%s задач</string>
+	<string name="get_plugins">Покупки в приложении</string>
 	<string name="no_application_found">Не найдено приложение, позволяющее открыть прикреплённый файл</string>
 	<string name="add_attachment">Прикрепить файл</string>
 	<string name="high_priority">Высокий</string>
@@ -370,6 +370,17 @@
 	<string name="no_title">(Без заголовка)</string>
 	<string name="back_button_saves_task">Кнопка \"назад\" сохраняет задачу</string>
 	<string name="default_list">Список по умолчанию</string>
+	<string name="plugin_description">Tasks развивается как open source проект и поддерживается единственным разработчиком. Некоторые функции приложения предлагаются как платные для дальнейшего развития программы</string>
+	<string name="themes_purchase_description">Разблокировать все темы и добавить цвета в оформление Tasks</string>
+	<string name="donate_summary">Благодарю за поддержку</string>
+	<string name="dashclock_description">Показать счетчик активных задач</string>
+	<string name="dashclock_purchase_description">Вывести счетчик активных задач. Нужен DashClock-виджет</string>
+	<string name="buy">Купить</string>
+	<string name="buy_dashclock_extension">Купить расширение</string>
+	<string name="billing_service_busy">Встроенный сервис перегружен, попробуйте позже</string>
+	<string name="filter">Фильтр</string>
+	<string name="theme">Тема</string>
+	<string name="themes">Дополнительные темы</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>отключить</item>
 		<item>каждые 15 минут</item>

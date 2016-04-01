@@ -7,11 +7,10 @@ import android.os.Bundle;
 
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
-import org.tasks.R;
 import org.tasks.dialogs.MyDatePickerDialog;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
-import org.tasks.preferences.ActivityPreferences;
+import org.tasks.preferences.ThemeManager;
 import org.tasks.time.DateTime;
 
 import javax.inject.Inject;
@@ -25,7 +24,7 @@ public class DateAndTimePickerActivity extends InjectingAppCompatActivity implem
     private static final String EXTRA_DATE_SELECTED = "extra_date_selected";
     public static final String EXTRA_TIMESTAMP = "extra_timestamp";
 
-    @Inject ActivityPreferences preferences;
+    @Inject ThemeManager themeManager;
 
     private DateTime initial;
     private boolean dateSelected;
@@ -48,7 +47,7 @@ public class DateAndTimePickerActivity extends InjectingAppCompatActivity implem
         if (datePickerDialog == null) {
             datePickerDialog = new MyDatePickerDialog();
             datePickerDialog.initialize(null, initial.getYear(), initial.getMonthOfYear() - 1, initial.getDayOfMonth());
-            datePickerDialog.setAccentColor(getResources().getColor(preferences.isDarkTheme() ? R.color.black_text_hint : R.color.primary));
+            datePickerDialog.setAccentColor(themeManager.getAppTheme().getDateTimePickerAccent());
             datePickerDialog.show(fragmentManager, FRAG_TAG_DATE_PICKER);
         }
         datePickerDialog.setOnCancelListener(this);

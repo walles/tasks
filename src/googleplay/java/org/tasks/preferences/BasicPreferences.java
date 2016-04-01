@@ -4,12 +4,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
-import android.preference.PreferenceCategory;
 import android.preference.TwoStatePreference;
 
 import org.tasks.BuildConfig;
 import org.tasks.R;
-import org.tasks.analytics.Tracker;
 import org.tasks.billing.PurchaseHelper;
 import org.tasks.billing.PurchaseHelperCallback;
 import org.tasks.dialogs.DialogBuilder;
@@ -32,7 +30,6 @@ public class BasicPreferences extends BaseBasicPreferences implements PurchaseHe
 
     private static final int REQUEST_PURCHASE = 10005;
 
-    @Inject Tracker tracker;
     @Inject TeslaUnreadReceiver teslaUnreadReceiver;
     @Inject Preferences preferences;
     @Inject PurchaseHelper purchaseHelper;
@@ -61,6 +58,16 @@ public class BasicPreferences extends BaseBasicPreferences implements PurchaseHe
                             }
                         })
                         .show();
+                return false;
+            }
+        });
+
+        getPref(R.string.p_purchased_themes).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                if (newValue != null && (boolean) newValue && !preferences.hasPurchase(R.string.p_purchased_themes)) {
+                    initiateThemePurchase();
+                }
                 return false;
             }
         });
@@ -100,17 +107,6 @@ public class BasicPreferences extends BaseBasicPreferences implements PurchaseHe
             }
         });
 
-        findPreference(getString(R.string.p_collect_statistics)).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                if (newValue != null) {
-                    tracker.setTrackingEnabled((boolean) newValue);
-                    return true;
-                }
-                return false;
-            }
-        });
-
         if (BuildConfig.DEBUG) {
             addPreferencesFromResource(R.xml.preferences_debug);
 
@@ -120,6 +116,8 @@ public class BasicPreferences extends BaseBasicPreferences implements PurchaseHe
                     preferences.setBoolean(R.string.p_purchased_dashclock, true);
                     preferences.setBoolean(R.string.p_purchased_tasker, true);
                     preferences.setBoolean(R.string.p_purchased_tesla_unread, true);
+                    preferences.setBoolean(R.string.p_purchased_themes, true);
+                    recreate();
                     return true;
                 }
             });
@@ -128,6 +126,7 @@ public class BasicPreferences extends BaseBasicPreferences implements PurchaseHe
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
                     purchaseHelper.consumePurchases();
+                    recreate();
                     return true;
                 }
             });
@@ -161,6 +160,8 @@ public class BasicPreferences extends BaseBasicPreferences implements PurchaseHe
                     ((TwoStatePreference) getPref(R.string.p_tesla_unread_enabled)).setChecked(success);
                 } else if (getString(R.string.sku_dashclock).equals(sku)) {
                     ((TwoStatePreference) getPref(R.string.p_purchased_dashclock)).setChecked(success);
+                } else if (getString(R.string.sku_themes).equals(sku)) {
+                    ((TwoStatePreference) getPref(R.string.p_purchased_themes)).setChecked(success);
                 } else {
                     Timber.d("Unhandled sku: %s", sku);
                 }
@@ -183,5 +184,10 @@ public class BasicPreferences extends BaseBasicPreferences implements PurchaseHe
             values.add(String.format("$%s USD", Integer.toString(i)));
         }
         return values.toArray(new String[values.size()]);
+    }
+
+    @Override
+    public void initiateThemePurchase() {
+        purchaseHelper.purchase(dialogBuilder, this, getString(R.string.sku_themes), getString(R.string.p_purchased_themes), REQUEST_PURCHASE, this);
     }
 }

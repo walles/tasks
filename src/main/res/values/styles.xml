@@ -11,6 +11,15 @@
         <item name="android:textColor">#fff</item>
     </style>
 
+    <style name="TranslucentDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+    <style name="Toolbar" parent="@style/Widget.AppCompat.Toolbar" />
+
     <style name="TextBoxText">
         <item name="android:textColor">?attr/asTextColor</item>
     </style>
@@ -66,8 +75,8 @@
     </style>
 
     <style name="task_edit_row_divider">
-        <item name="android:layout_marginLeft">@dimen/keyline_second_absolute</item>
-        <item name="android:layout_marginStart">@dimen/keyline_second_absolute</item>
+        <item name="android:layout_marginLeft">@dimen/keyline_content_inset</item>
+        <item name="android:layout_marginStart">@dimen/keyline_content_inset</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1px</item>
         <item name="android:background">?attr/task_edit_divider</item>
@@ -101,18 +110,6 @@
     
     <style name="TextAppearance.TAd_ItemDueDate_Completed" parent="TextAppearance.TAd_ItemDueDate">
         <item name="android:textColor">?attr/asDueDateCompletedColor</item>
-    </style>
-
-    <!-- ========================================================= Widget == -->
-
-    <style name="TextAppearance.Widget">                                                                                                                                                                                      
-        <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/widget_text_color_light</item>                                                                                                                                                   
-    </style>
-
-    <style name="TextAppearance.WidgetDueDate">
-        <item name="android:textSize">12sp</item>
-        <item name="android:textColor">@color/widget_text_color_light</item>
     </style>
 
     <style name="FilePickerTheme" parent="NNF_BaseTheme.Light">
